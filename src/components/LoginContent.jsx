@@ -17,20 +17,20 @@ const LoginContent = () =>{
     }
 
     return <div className="login-card">
-        <label> Användarnamn:
+        {/* <label> Användarnamn: */}
             <input type="text"
             placeholder="Användarnamn..."
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            onBlur={() => setNameTouched(true)}></input>
-        </label>
-        <label> Lösenord:
+            onBlur={() => setNameTouched(true)}/>
+        {/* </label> */}
+        {/* <label> Lösenord: */}
             <input type="password"
             placeholder="Lösenord..."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onBlur={() => setPasswordTouched(true)}></input>
-        </label>
+            onBlur={() => setPasswordTouched(true)}/>
+        {/* </label> */}
         <button onClick={handleLogin}>Logga in</button>
     </div>
 }

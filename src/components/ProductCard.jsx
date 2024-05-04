@@ -1,14 +1,19 @@
-const ProductCard = ({toy}) =>{
+import { useStore } from '../data/store.js'
 
-    function orderToy(toy){
-        // orderedList: addToy
+const ProductCard = ({item}) =>{
+    const { addOrderedToy } = useStore((state) => ({
+        addOrderedToy: state.addOrderedToy}))
+
+    function orderToy(item){
+        addOrderedToy(item)
     }
 
     return <div className="product-card">
-        <img src={toy.image}></img>
+        <img src={item.image}></img>
         <div className="product-card-text-row">
-        <p>{toy.name}</p>
-        <h3>{toy.price}</h3>
+        <p>{item.name}</p>
+        <h3>{item.price}</h3>
+        <button className="add-button" onClick={() => orderToy(item)}>+</button>
         </div>
     </div>
 }

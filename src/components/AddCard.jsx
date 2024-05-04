@@ -1,37 +1,75 @@
 import { useState } from 'react'
 import { useStore } from '../data/store.js'
+import { getToyList, addToyFirestore } from '../data/crud.js'
 
 const AddCard = () => {
-    const { addToyZustand } = useStore((state) => ({ toyList: state.toyList, addToyZustand: state.addToyZustand }))
+    const { addToyZustand, toyList, setToyList } = useStore((state) => ({
+        addToyZustand: state.addToyZustand,
+        toyList: state.toyList,
+        setToyList: state.setToyList }))
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [image, setImage] = useState('')
     const [category, setCategory] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
-    const handleAdd = () => {
-        const toy = {
+    const handleAdd = async () => {
+        setIsLoading(true)
+        // Får 'event is undefined' när jag försöker kalla den som async (event)
+        // event.preventDefault()
+        const item = {
             name: name,
             id: name,
             price: parseInt(price),
             image: image,
-            category: category
+            category: category,
         }
-        addToyZustand(toy)
-        addToyFirestore(toy)
+        // TODO: meddela användaren att vi väntar på databasen - visa spinner t.ex.
+        try {
+            await addToyFirestore(item)
+            setName('')
+            setPrice('')
+            setImage('')
+            setCategory('')
+            setToyList(await getToyList())
+        } catch {
+            // TODO: visa felmeddelande för användaren
+            console.log('Något gick fel med servern.')
+
+        } finally {
+            console.log(toyList)
+            setIsLoading(false)
+        }
     }
 
-    return <div>
+    // const handleAdd = () => {
+    //     const item = {
+    //         name: name,
+    //         id: name,
+    //         price: parseInt(price),
+    //         image: image,
+    //         category: category
+    //     }
+    //     addToyZustand(item)
+    //     addToyFirestore(item)
+        // setName('')
+        // setPrice('')
+        // setImage('')
+        // setCategory('')
+    // }
+
+    return <div className="add-card">
         <label> Namn:
-            <input onChange={(e) => setName(e.target.value)}></input>
+            <input value={name} onChange={(e) => setName(e.target.value)}></input>
         </label>
         <label> Pris:
-            <input onChange={(e) => setPrice(e.target.value)}></input>
+            <input value={price} onChange={(e) => setPrice(e.target.value)}></input>
         </label>
         <label> Bild:
-            <input onChange={(e) => setImage(e.target.value)}></input>
+            <input value={image} onChange={(e) => setImage(e.target.value)}></input>
         </label>
         <label> Kategori:
-            <input onChange={(e) => setCategory(e.target.value)}></input>
+            <input value={category} onChange={(e) => setCategory(e.target.value)}></input>
         </label>
         <button onClick={() => handleAdd()}></button>
     </div>

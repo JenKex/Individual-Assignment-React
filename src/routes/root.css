@@ -2,19 +2,34 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #1E3D51;
+    font-family: 'Fredoka';
 }
 
 .header-row{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     width: 100vw;
     height: 10vh;
-    background-color: rgb(178, 208, 219);
+    justify-content: space-between;
+    background-color: #A0CED9;
 }
+
+.header-row > a > img{
+    height: 100%;
+}
+
+/* .logga-pc{
+    align-self: flex-start;
+}
+
+.shopping-cart{
+    align-self: flex-end;
+} */
 
 .footer-row{
     width: 100vw;
     height: 10vh;
     background-color: darkkhaki;
+    display: flex;
+    justify-content: space-around;
 }

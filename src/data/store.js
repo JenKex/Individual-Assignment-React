@@ -44,9 +44,9 @@ export const useStore = create((set) => ({
         ...item,
   
         name: updatedItem.name,
-        description: updatedItem.description,
+        price: updatedItem.price,
         image: updatedItem.image,
-        price: updatedItem.price
+        category: updatedItem.category
       } : item)
     })),
 

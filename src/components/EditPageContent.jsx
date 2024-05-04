@@ -7,15 +7,12 @@ import AddCard from './AddCard.jsx'
 
 const EditPageContent = () => {
     const { toyList, addToyZustand } = useStore((state) => ({ toyList: state.toyList, addToyZustand: state.addToyZustand }))
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [image, setImage] = useState('')
-    const [category, setCategory] = useState('')
 
     return <section className="edit-page-content">
-        <div>
-            {toyList.map((toy) =>
-            <EditCard toy={toy} key={toy.name}/>)}
+        <div className="edit-toy-grid">
+            {toyList.map((item) =>
+            <EditCard item={item} key={item.name}/>)}
+            {/* Ta ut denna div när jag gör custom addcards som flippar baserat på en isAdding-bool. Har inte det nu eftersom det kan bryta rutnätet, men när de är formaterade likadant ska det se ut så. */}
                 <div>
                     <AddCard/>
                 </div>

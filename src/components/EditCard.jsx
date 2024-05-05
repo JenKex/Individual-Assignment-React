@@ -1,5 +1,5 @@
 import { deleteToyFirestore, editToyFirestore, getToyList } from "../data/crud"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useStore } from '../data/store.js'
 
 const EditCard = ({ item }) => {
@@ -12,8 +12,18 @@ const EditCard = ({ item }) => {
     const [image, setImage] = useState(item.image)
     const [category, setCategory] = useState(item.category)
     const [editMode, setEditMode] = useState(false)
+    const [nameError, setNameError] = useState(' ')
+    const [imageError, setImageError] = useState(' ')
+    const [priceError, setPriceError] = useState(' ')
+    const [categoryError, setCategoryError] = useState(' ')
     const [isLoading, setIsLoading] = useState(false)
     // Sätt sedan 'disabled = {isLoading}'.
+
+    useEffect(() => {
+        if (nameError === '' && imageError === '' && priceError === '' && categoryError === '') {
+            handleEdit(item);
+        }
+    }, [nameError, imageError, priceError, categoryError]);
 
     function toggleEdit() {
         setEditMode(!editMode)
@@ -32,6 +42,7 @@ const EditCard = ({ item }) => {
 		await editToyFirestore(item.key, updatedItem)
 		const updatedList = await getToyList()
 		setToyList(updatedList)
+        toggleEdit()
 	}
 
     const handleDelete = async (item) => {
@@ -41,6 +52,67 @@ const EditCard = ({ item }) => {
 		setToyList(toysFromFirestore)
 		setIsLoading(false)
 	}
+
+    function checkName() {
+        if (name.length === 0) {
+            setNameError('Vänligen fyll i ett namn.')
+        }
+        else {
+            setNameError('')
+        }
+    }
+
+    function checkImage() {
+        if (image.length === 0) {
+            setImageError('Vänligen fyll i en bildlänk.')
+        }
+        else if (!image.includes('http')) {
+            setImageError('Länken måste ha ett giltigt format.')
+        }
+        else {
+            setImageError('')
+        }
+    }
+
+    function checkPrice() {
+        if (price.length === 0) {
+            setPriceError('Vänligen fyll i ett pris.')
+        }
+        else if (!(/[0-9]+$/.test(price))) {
+            setPriceError('Detta fält kan bara ha siffror i sig.')
+        }
+        else {
+            setPriceError('')
+        }
+    }
+
+    function checkCategory() {
+        if (category.length === 0) {
+            return setCategoryError('Vänligen fyll i en beskrivning.')
+        }
+        else if (category.includes(' ')) {
+            return setCategoryError('En kategori måste vara enbart ett ord.')
+        }
+        else {
+            setCategoryError('')
+        }
+    }
+
+    // Skrotade funktioner för validering -- tanken var att leda in i en popup med en 'Är du säker?'-typ request, så att felmeddelandet sätts och sedan görs valideringen, för att dela upp det i två separata steg. Problemet är som de andra problemen -- att variabeln sätts samtidigt som den kollas 
+    // Detta kommer också kvarstå för setdisabled om jag gör det med onChange-effekter. Använder useEffect och fulhacks trots allt.
+
+    // function checkError(){
+    //
+    // }
+
+    // function validateItem(item){
+    //     if (nameError === '' && priceError === '' && imageError === '' && categoryError === ''){
+    //         handleEdit(item)
+    //     }
+    //     else{
+    //         setErrorVisible(true)
+    //     }
+    // }
 
     // function handleEdit(item) {
     //     console.log(item)
@@ -62,7 +134,8 @@ const EditCard = ({ item }) => {
 
     // Skriv funktioner för: Validering
     // Två möjligheter för detta:
-    // 1: Gör onChange-events som sätter felmeddelanden, skriv en if-else funktion som Editknappen kör där den inte pushar förändringar om felmeddelanden finns 
+    // 1: Gör onChange-events som sätter felmeddelanden, skriv en if-else funktion som Editknappen kör där den inte pushar förändringar om felmeddelanden finns
+    // (Anmärkningar till detta: Samma problem som ursprungliga försöket i förra grupparbetet. Eftersom en onChange effekt både tar förändringen och kollar efter förändringen samtidigt ligger den ofta 'ett steg efter', alltså om man raderar sista bokstaven i fältet står det inget fel, men när man skriver in en bokstav dyker felet upp.)
     // 2: sätt edit-knappen till disabled om fälten inte är korrekt validerade, kolla om fälten är korrekt inskrivna i varje onChange (t.ex.  nameValidate(event){setName(event.target.value) checkErrorName()}, onChange {() => nameValidate})
     // Detta ska förhoppningsvis förhindra fulhacks med UseEffect som förra gången.
 
@@ -71,22 +144,26 @@ const EditCard = ({ item }) => {
             <label> Namn:
                 <input value={name} onChange={(e) => setName(e.target.value)}></input>
             </label>
+            <p>{nameError}</p>
             <label> Pris:
                 <input value={price} onChange={(e) => setPrice(e.target.value)}></input>
             </label>
+            <p>{priceError}</p>
             <label> Bild:
                 <input value={image} onChange={(e) => setImage(e.target.value)}></input>
             </label>
+            <p>{imageError}</p>
             <label> Kategori:
                 <input value={category} onChange={(e) => setCategory(e.target.value)}></input>
             </label>
-            <button onClick={() => handleEdit(item)}></button>
+            <p>{categoryError}</p>
+            <button onClick={() => handleEdit(item)}>Spara</button>
         </div> :
             <div className="display-card">
                 <img src={item.image}></img>
                 <div className="display-card-text-row">
                     <p>{item.name}</p>
-                    <h3>{item.price}</h3>
+                    <h3>{item.price}:-</h3>
                 </div>
                 <div className="button-row">
                     <button onClick={toggleEdit}>Redigera</button>

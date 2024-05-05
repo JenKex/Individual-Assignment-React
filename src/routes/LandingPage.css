@@ -1,7 +1,6 @@
 .landing-banner-image{
-    height: 30vh;
+    height: 50vh;
     width: 100vw;
-    padding: 5em;
     background-image: url('https://www.verywellfamily.com/thmb/oP3UhVA4LcwdnPEfqjXxrEVZ7YE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/children-running-through-water-sprinkler-56901663-5c471cda46e0fb000193a919.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,6 +17,8 @@
 .product-card{
     display: flex;
     flex-direction: column;
+    padding: 1em;
+    margin: 1em;
     background-color: #A0CED9;
     border-radius: 3em;
 }
@@ -33,6 +34,7 @@
 
 .product-section > input{
     max-width: 15em;
+    margin-bottom: 1em;
 }
 
 .product-grid{
@@ -43,14 +45,24 @@
 
 .product-card-text-row{
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.product-card-text-row > * {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .add-button{
     min-width: 3em;
     max-height: 2em;
     background-color: #FAD535;
+}
+
+input{
+    border-radius: 0.3em;
 }
 
 @media screen and (max-width: 600px){

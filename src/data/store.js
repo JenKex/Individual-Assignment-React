@@ -2,20 +2,20 @@ import { create } from "zustand";
 
 export const useStore = create((set) => ({
     toyList: [
-        {
-            name: "Badboll",
-            id: 1,
-            image: "https://m.media-amazon.com/images/I/61YL-c2pZOL._AC_UF894,1000_QL80_.jpg",
-            price: 29,
-            category: "Sport"
-        },
-        {
-            name: "Solglasögon",
-            id: 2,
-            image: "https://babysafety.se/cdn/shop/products/Solglasogonbarnbla.jpg?v=1674045737&width=1445",
-            price: 39,
-            category: "Clothes"
-        }
+        // {
+        //     name: "Badboll",
+        //     id: 1,
+        //     image: "https://m.media-amazon.com/images/I/61YL-c2pZOL._AC_UF894,1000_QL80_.jpg",
+        //     price: 29,
+        //     category: "Sport"
+        // },
+        // {
+        //     name: "Solglasögon",
+        //     id: 2,
+        //     image: "https://babysafety.se/cdn/shop/products/Solglasogonbarnbla.jpg?v=1674045737&width=1445",
+        //     price: 39,
+        //     category: "Clothes"
+        // }
     ],
 
     setToyList: newToyList => set((state) => ({

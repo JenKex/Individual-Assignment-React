@@ -24,7 +24,7 @@ const AddCard = () => {
             image: image,
             category: category,
         }
-        // TODO: meddela användaren att vi väntar på databasen - visa spinner t.ex.
+
         try {
             await addToyFirestore(item)
             setName('')
@@ -33,7 +33,6 @@ const AddCard = () => {
             setCategory('')
             setToyList(await getToyList())
         } catch {
-            // TODO: visa felmeddelande för användaren
             console.log('Något gick fel med servern.')
 
         } finally {
@@ -71,7 +70,7 @@ const AddCard = () => {
         <label> Kategori:
             <input value={category} onChange={(e) => setCategory(e.target.value)}></input>
         </label>
-        <button onClick={() => handleAdd()}></button>
+        <button disabled={isLoading} onClick={() => handleAdd()}>Lägg till</button>
     </div>
 }
 

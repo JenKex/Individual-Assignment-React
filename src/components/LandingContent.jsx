@@ -4,8 +4,7 @@ import { getToyList } from '../data/crud.js'
 import ProductCard from './ProductCard.jsx'
 
 const LandingContent = () => {
-    // async useEffect = (setToyList(await getToyList())
-    // , [])
+
     const { toyList,  setToyList, searchList, setSearchList } = useStore((state) => ({
         toyList: state.toyList,
         setToyList: state.setToyList,
@@ -13,6 +12,7 @@ const LandingContent = () => {
         setSearchList: state.setSearchList } ))
     console.log('LandingPage:', toyList)
     const [searchValue, setSearchValue] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleGetToyList = async () => {
         setToyList(await getToyList())
@@ -39,12 +39,13 @@ const LandingContent = () => {
     // }
     //
 
+    // if searchValue.includes `0-9`, const setErrorMessage('Vänligen skriv produktens namn med bokstäver.')
+
     return <div className="landing-page">
         <div className="landing-banner-image">
         </div>
         <section className="product-section">
         <input className="product-search" placeholder="Badboll, solglasögon..." value={searchValue} onChange={handleSearch}></input>
-        <button onClick={handleGetToyList}>Hämta från Firestore</button>
             <div className="product-grid">
                 {searchValue === '' ? toyList.map((item) =>
                     <ProductCard item={item} key={item.name} />) :

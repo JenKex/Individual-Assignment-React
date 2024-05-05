@@ -13,7 +13,7 @@ const ShoppingCard = ({item}) =>{
         <img src={item.image}></img>
         <div className="shopping-card-text-row">
         <p>{item.name}</p>
-        <h3>{item.price}</h3>
+        <h3>{item.price}:-</h3>
         </div>
         <button className="remove-button" onClick={() => deleteToy(item)}>-</button>
     </div>

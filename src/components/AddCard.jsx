@@ -19,7 +19,7 @@ const AddCard = () => {
 
     useEffect(() => {
         if (nameError === '' && imageError === '' && priceError === '' && categoryError === '') {
-            handleAdd(item);
+            handleAdd();
         }
     }, [nameError, imageError, priceError, categoryError]);
 

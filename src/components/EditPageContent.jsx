@@ -12,10 +12,7 @@ const EditPageContent = () => {
         <div className="edit-toy-grid">
             {toyList.map((item) =>
             <EditCard item={item} key={item.name}/>)}
-            {/* Ta ut denna div när jag gör custom addcards som flippar baserat på en isAdding-bool. Har inte det nu eftersom det kan bryta rutnätet, men när de är formaterade likadant ska det se ut så. */}
-                <div>
-                    <AddCard/>
-                </div>
+            <AddCard/>
         </div>
     </section>
 

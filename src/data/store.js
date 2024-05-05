@@ -58,6 +58,10 @@ export const useStore = create((set) => ({
 
     setOrderedList: (items => set({ orderedList: items })),
 
+    sortedList: [],
+
+    setSortedList: (items => set({ sortedList: items })),
+
     addOrderedToy: (item) => set((state) => ({
         orderedList: [
             ...state.orderedList,

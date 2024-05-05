@@ -40,7 +40,6 @@ const Root = () => {
 
 			<footer className="footer-row">
 				<NavLink to="/Logga-in">Logga in</NavLink>
-				<NavLink to="/Administration">Administration</NavLink>
 			</footer>
 
 		</div>

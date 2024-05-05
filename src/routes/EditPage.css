@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.edit-card, .display-card {
+.edit-card, .display-card, .add-card {
     min-width: 30vw;
     min-height: 40vh;
     margin: 1em;
@@ -37,12 +37,20 @@
     margin: 0.5em;
   }
 
+  .display-card > button{
+    margin-bottom: 0.5em;
+  }
+
   .edit-card > * {
     margin-top: 0.5em;
   }
 
-.add-card {
-    max-width: 30vw;
+  .button-row{
+    margin-bottom: 0.5em;
+  }
+
+/* .add-card {
+    min-width: 30vw;
     min-height: 40vh;
     display: flex;
     flex-direction: column;
@@ -50,7 +58,7 @@
     border-radius: 3em;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .add-card > * {
   margin-top: 0.5em;

@@ -1,10 +1,38 @@
 .landing-banner-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 50vh;
     width: 100vw;
     background-image: url('https://www.verywellfamily.com/thmb/oP3UhVA4LcwdnPEfqjXxrEVZ7YE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/children-running-through-water-sprinkler-56901663-5c471cda46e0fb000193a919.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.banner-blurb{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(27, 27, 44, 0.8);
+    color: #cfe2e6;
+    padding: 1em;
+    border-radius: 2em;
+    max-width: 40vw;
+    height: fit-content;
+}
+
+.select-sort-type{
+    display: flex;
+    background-color: #A0CED9;
+    border-radius: 2em;
+    min-width: 30vw;
+    justify-content: space-around;
+}
+
+.sorting-arrow{
+    cursor: pointer;
 }
 
 .product-section{
@@ -58,7 +86,6 @@
 .add-button{
     min-width: 3em;
     max-height: 2em;
-    background-color: #FAD535;
 }
 
 input{
@@ -68,5 +95,8 @@ input{
 @media screen and (max-width: 600px){
     .product-grid{
     grid-template-columns: 1fr;
+    }
+    .banner-blurb{
+        max-width: 80vw;
     }
 }

@@ -8,9 +8,9 @@ body{
 
 .header-row{
     display: flex;
+    justify-content: space-between;
     width: 100vw;
     height: 10vh;
-    justify-content: space-between;
     background-color: #A0CED9;
 }
 
@@ -30,9 +30,18 @@ body{
 .footer-row{
     width: 100vw;
     height: 10vh;
-    background-color: rgb(157, 168, 110);
+    background-color: #1E3D51;
     display: flex;
     justify-content: space-around;
+}
+
+.footer-row > a{
+    color: #cfe2e6;
+    border: 2px solid #cfe2e6;
+    border-radius: 2em;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5em;
 }
 
 button{

@@ -42,6 +42,10 @@ const EditCard = ({ item }) => {
 		await editToyFirestore(item.key, updatedItem)
 		const updatedList = await getToyList()
 		setToyList(updatedList)
+        setNameError(' ')
+        setPriceError(' ')
+        setImageError(' ')
+        setCategoryError(' ')
         toggleEdit()
 	}
 
@@ -101,9 +105,12 @@ const EditCard = ({ item }) => {
     // Skrotade funktioner för validering -- tanken var att leda in i en popup med en 'Är du säker?'-typ request, så att felmeddelandet sätts och sedan görs valideringen, för att dela upp det i två separata steg. Problemet är som de andra problemen -- att variabeln sätts samtidigt som den kollas 
     // Detta kommer också kvarstå för setdisabled om jag gör det med onChange-effekter. Använder useEffect och fulhacks trots allt.
 
-    // function checkError(){
-    //
-    // }
+    function checkError(){
+        checkName()
+        checkPrice()
+        checkImage()
+        checkCategory()
+    }
 
     // function validateItem(item){
     //     if (nameError === '' && priceError === '' && imageError === '' && categoryError === ''){
@@ -138,26 +145,19 @@ const EditCard = ({ item }) => {
     // (Anmärkningar till detta: Samma problem som ursprungliga försöket i förra grupparbetet. Eftersom en onChange effekt både tar förändringen och kollar efter förändringen samtidigt ligger den ofta 'ett steg efter', alltså om man raderar sista bokstaven i fältet står det inget fel, men när man skriver in en bokstav dyker felet upp.)
     // 2: sätt edit-knappen till disabled om fälten inte är korrekt validerade, kolla om fälten är korrekt inskrivna i varje onChange (t.ex.  nameValidate(event){setName(event.target.value) checkErrorName()}, onChange {() => nameValidate})
     // Detta ska förhoppningsvis förhindra fulhacks med UseEffect som förra gången.
+    // (Anmärkningar från framtiden: Fulhacks fortsätter.)
 
     return <section>
         {editMode ? <div className="edit-card">
-            <label> Namn:
-                <input value={name} onChange={(e) => setName(e.target.value)}></input>
-            </label>
+                <input placeholder='Namn' value={name} onChange={(e) => setName(e.target.value)}></input>
             <p>{nameError}</p>
-            <label> Pris:
-                <input value={price} onChange={(e) => setPrice(e.target.value)}></input>
-            </label>
+                <input placeholder='Pris' value={price} onChange={(e) => setPrice(e.target.value)}></input>
             <p>{priceError}</p>
-            <label> Bild:
-                <input value={image} onChange={(e) => setImage(e.target.value)}></input>
-            </label>
+                <input placeholder='Bildadress' value={image} onChange={(e) => setImage(e.target.value)}></input>
             <p>{imageError}</p>
-            <label> Kategori:
-                <input value={category} onChange={(e) => setCategory(e.target.value)}></input>
-            </label>
+                <input placeholder='Kategori' value={category} onChange={(e) => setCategory(e.target.value)}></input>
             <p>{categoryError}</p>
-            <button onClick={() => handleEdit(item)}>Spara</button>
+            <button onClick={() => checkError()}>Spara</button>
         </div> :
             <div className="display-card">
                 <img src={item.image}></img>

@@ -1,0 +1,28 @@
+.login-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-card{
+    display: flex;
+    flex-direction: column;
+    min-width: 30vw;
+    min-height: 60vh;
+    border-radius: 2em;
+    background-color: rgb(133, 229, 229);
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card > *{
+    margin-top: 1em;
+    max-width: 15em;
+}
+
+@media screen and (max-width: 600px){
+    .login-card{
+        min-width: 80vw;
+    }
+}
